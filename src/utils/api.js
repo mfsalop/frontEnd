@@ -70,7 +70,7 @@ export const editarProyectos = async ( data, successCallback, errorCallback) => 
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
-/*---------USUARIOS-------------*/
+/*---------Usuarios-------------*/
 
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
   const options = { method: 'GET',
@@ -79,14 +79,37 @@ export const obtenerUsuarios = async (successCallback, errorCallback) => {
 };
 
 export const registrarUsuarios = async (data, successCallback, errorCallback) => {
-  const options = {
-    method: 'POST',
-    url: 'http://localhost:3001/usuarios/create',
-    headers: { 'Content-Type': 'application/json' },
-    data,
-  };
-  await axios.request(options).then(successCallback).catch(errorCallback);
+  const mutation = `mutation
+  registerUser($UserInput:UserInput!){   
+    registerUser(input: $UserInput) {
+      nombre
+      apellido
+      email
+      contrasena
+      documentType
+      documentId
+      rol
+      estado
+    }
+  }`
+
+  let varInputUser =
+  {
+  "UserInput": {
+    "nombre": "Hola",
+    "apellido": "Mundo",
+    "email": "hola@mundo.com",
+    "contrasena": "homu123*",
+    "documentType": "CC",
+    "documentId": "123AA4566",
+    "rol": "estudiante",
+    "estado": "pendiente",
+  }
+}
+  
+  await request('http://localhost:3001/api', mutation, varInputUser).then(successCallback);
 };
+
 
 export const editarUsuarios = async ( data, successCallback, errorCallback) => {
   const options = {
@@ -97,4 +120,3 @@ export const editarUsuarios = async ( data, successCallback, errorCallback) => {
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
-
