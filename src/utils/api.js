@@ -73,10 +73,22 @@ export const editarProyectos = async ( data, successCallback, errorCallback) => 
 /*---------Usuarios-------------*/
 
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
-  const options = { method: 'GET',
-  url: 'http://localhost:3001/usuarios/' };
-  await axios.request(options).then(successCallback).catch(errorCallback);
-};
+
+  const query = `
+  {getUsers {
+    _id
+    nombre
+    apellido
+    email
+    contrasena
+    documentType
+    documentId
+    rol
+    estado
+  }}
+`
+await request('http://localhost:3001/api', query).then(successCallback);
+}; 
 
 export const registrarUsuarios = async (data, successCallback, errorCallback) => {
   const mutation = `mutation
@@ -112,11 +124,50 @@ export const registrarUsuarios = async (data, successCallback, errorCallback) =>
 
 
 export const editarUsuarios = async ( data, successCallback, errorCallback) => {
-  const options = {
-    method: 'PATCH',
-    url: 'http://localhost:3001/usuarios/update/',
-    headers: { 'Content-Type': 'application/json' },
-    data,
-  };
-  await axios.request(options).then(successCallback).catch(errorCallback);
+  const mutation = `mutation
+  editUserInfo($userEditInput:UserEditInput!){   
+    editUserInfo((input: $userEditInput) {
+      _id
+      nombre
+      apellido
+      email
+      contrasena
+      documentId
+      estado
+    }
+  }`
+  
+  let varuserEditInput =
+    {
+      "userEditInput": {
+      "_id": data._id,
+      "nombre": "",
+      "apellido": "",
+      "email": "",
+      "contrasena": "",
+      "documentId": "",
+      "estado": "",
+      
+    }
+  }
+  await request('http://localhost:3001/api', mutation, varuserEditInput).then(successCallback);
+};
+
+export const editUserState = async ( data, successCallback, errorCallback) => {
+  const mutation = `mutation
+  editUserState($userStateInput:UserStateInput!){   
+    editUserState((input: $userStateInput) {
+      rol
+      estado
+    }
+  }`
+  
+  let varUserStateInput =
+    {
+      "rol": "Estudiante",
+      "estado": "Autorizado",
+      
+    }
+
+  await request('http://localhost:3001/api', mutation, varUserStateInput).then(successCallback);
 };
