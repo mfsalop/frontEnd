@@ -7,12 +7,12 @@ import { obtenerProyectos, registrarProyectos, editarProyectos} from '../utils/a
 import { nanoid } from 'nanoid';
 
 
-const GestionarProyectos = () => {
+const Proyectos = () => {
 
     const [proyectos, setProyectos] = useState([]);
     const [mostrarTablaProyectos, setMostrarTablaProyectos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Proyecto');
-    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true); 
     
     
     useEffect(() => {
@@ -94,8 +94,8 @@ const TablaProyectos = ({ listaProyectos, setEjecutarConsulta }) => {
         <div>
             <Header/>
             <div className="textosInicioSeccion">
-            <div className="tituloSeccion">Gestionar proyectos</div>
-            <div className="descripcionSeccion">Aquí encuentras los proyectos, los actualizas o agregas nuevos.</div>
+            <div className="tituloSeccion">Proyectos</div>
+            <div className="descripcionSeccion">Aquí encuentras los proyectos y podras inscribirte.</div>
         </div>   
             <section>    
                 <ul className="posicionBuscador"> 
@@ -115,9 +115,8 @@ const TablaProyectos = ({ listaProyectos, setEjecutarConsulta }) => {
                                 <th scope="col">ID Proyecto</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Lider</th>
-                                <th scope="col">Descripción</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Acción</th>
+                                <th scope="col">Inscribir</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -230,10 +229,9 @@ const FilaProyecto = ({ proyecto, setEjecutarConsulta }) => {
                 <td>{proyecto.codigoProyecto}</td>
                 <td>{proyecto.nombre}</td>
                 <td>{proyecto.nombreLider}</td>
-                <td>{proyecto.descripcion}</td>
                 <td>{proyecto.estadoProyecto}</td>
-                <td><button className="editButton" onClick={()=>setEdit(true)}> 
-                        <span className="material-icons">edit</span></button></td>
+                <td><button className="checkButton" onClick={()=>setEdit(true)}> 
+                        <span className="material-icon">Add</span></button></td>
                     <td></td> 
             </>
             )
@@ -322,4 +320,4 @@ const RegistrarProyectos = ({ setMostrarTablaProyectos, listaProyectos, setProye
     );
 };
 
-export default GestionarProyectos;
+export default Proyectos;

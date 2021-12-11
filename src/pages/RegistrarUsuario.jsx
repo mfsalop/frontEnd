@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GestionarUsuarios from './GestionarUsuarios';
 import { Link } from "react-router-dom";
+import { nanoid } from 'nanoid';
 
 /*------------ FORMULARIO Crear Nuevos Usuarios --------------*/
 const RegistrarUsuario = () => {
@@ -26,11 +27,14 @@ const RegistrarUsuario = () => {
             {   
                 _id:nuevoUsuario._id,
                 id_usuario: nuevoUsuario.id_usuario,
-                given_name: nuevoUsuario.given_name,
-                family_name: nuevoUsuario.family_name,
+                nombre: nuevoUsuario.nombre,
+                apellido: nuevoUsuario.apellido,
                 email: nuevoUsuario.email,
+                contrasena: nuevoUsuario.contrasena,
+                documentType: nuevoUsuario.documentType,
+                documentId: nuevoUsuario.documentId,
                 rol:nuevoUsuario.rol,
-                estado:nuevoUsuario.estado
+                estado:nuevoUsuario.estado,
             },
             (response) => {
               console.log(response.data);
@@ -45,7 +49,7 @@ const RegistrarUsuario = () => {
       
     
     return(
-        <div id="registrarUsuarios"> 
+        <div> 
 
             <div>
                 <Link to ='/'>
@@ -65,19 +69,14 @@ const RegistrarUsuario = () => {
             <div className="contenedorFormulario">
                 <form ref={form} onSubmit={submitForm}>
 
-                    <label htmlFor="id">Cédula
-                    <input type="text" name="id_usuario"
-                    placeholder="Ingresa número cedula sin puntos ni comas, Ej:10999009"
-                    required/>
-                    </label>
                 
                     <label htmlFor="NombreUsuario">Nombres
-                    <input type="text" name="given_name"
+                    <input type="text" name="nombre"
                     placeholder="Ingresa nombre completo..." required/>
                     </label>
 
-                    <label htmlFor="ApellidorUsuario">Apellidos
-                    <input type="text" name="family_name"
+                    <label htmlFor="ApellidosUsuario">Apellidos
+                    <input type="text" name="apellido"
                     placeholder="Ingresa apellidos..." required/>
                     </label>
 
@@ -85,6 +84,28 @@ const RegistrarUsuario = () => {
                     <input type="email" id="email" name="email"
                     placeholder="Ejemplo: hola@hotmail.com" required/>
                     </label>
+
+                    <label htmlFor="passwordUsuario">Constraseña
+                    <input type="password" id="password" name="contrasena"
+                    placeholder="Ingresa contraseña" required/>
+                    </label>
+
+                     <br/>
+                    <label htmlFor="documentTypeUsuario">Tipo de documento
+                        <select name="documentType" required defaultValue={0} >
+                            <option disabled value={0}> Selecciona el tipo de documento</option>
+                            <option>CC</option>
+                            <option>TI</option>
+                            <option>Pasaporte</option>
+                        </select>
+                    </label>
+
+                    <label htmlFor="id">Documento
+                    <input type="text" name="documentId"
+                    placeholder="Ingresa número cedula sin puntos ni comas, Ej:10999009"
+                    required/>
+                    </label>
+                
                     <br/>
                     <label htmlFor="rolUsuario">Rol del Usuario
                         <select name="rol" required defaultValue={0} >

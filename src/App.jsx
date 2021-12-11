@@ -5,7 +5,10 @@ import GestionarProyectos from './pages/GestionarProyectos';
 import GestionarUsuarios from './pages/GestionarUsuarios';
 import './styles/App.css'
 import RegistrarUsuario from './pages/RegistrarUsuario';
+import Proyectos from './pages/Proyectos';
 // import PrivateRoute from './components/PrivateRoute';
+
+
 
 import React from "react";
 import {
@@ -15,6 +18,11 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+
+
+
+
   return (
        
     <div className="App">
@@ -36,6 +44,10 @@ function App() {
 
          <Route path='/GestionarUsuarios'>
           <GestionarUsuarios />
+         </Route>
+
+         <Route path='/Proyectos'>
+          <Proyectos />
          </Route>
 
          <Route path='/'>
